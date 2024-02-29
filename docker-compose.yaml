@@ -1,0 +1,35 @@
+version: '3'
+services:
+  app:
+    build: .
+    command:
+      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./pddata:/var/lib/postgresql/data
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    tty: false
+
+  db:
+    image: postgres:13
+    env_file:
+      - .env
+    expose:
+      - '5432'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./pddata:/var/lib/postgresql/data
+
+
+volumes:
+  api:
+  db:
+    driver: local
