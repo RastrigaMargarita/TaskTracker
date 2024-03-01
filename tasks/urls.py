@@ -6,7 +6,7 @@ from tasks.views.task import TaskViewSet, ImportantWorksList
 
 urlpatterns = [
 
-    path('task/important_works', ImportantWorksList.as_view()),
+    path('important_works', ImportantWorksList.as_view()),
 ]
 
 router = routers.DefaultRouter()

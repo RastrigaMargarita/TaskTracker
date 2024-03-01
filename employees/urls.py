@@ -5,7 +5,7 @@ from rest_framework import routers
 from employees.views.employee import EmployeeViewSet, CurrentWorksList
 
 urlpatterns = [
-    path('task/current_works', CurrentWorksList.as_view()),
+    path('current_works', CurrentWorksList.as_view()),
 ]
 
 router = routers.DefaultRouter()
