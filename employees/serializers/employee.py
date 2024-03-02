@@ -22,13 +22,17 @@ class CurrentWorksSerializer(serializers.ModelSerializer):
 
     def get_task_quantity(self, instance):
 
-        return Task.objects.filter(responsible_person=instance, status=Task.TaskStatus.TAKEN).count()
+        return Task.objects\
+            .filter(responsible_person=instance,
+                    status=Task.TaskStatus.TAKEN)\
+            .count()
 
     def get_task_list(self, instance):
 
-        return DependedTasksSerializer(
-            Task.objects.filter(responsible_person=instance).exclude(status=Task.TaskStatus.DONE), many=True,
-            read_only=True).data
+        return DependedTasksSerializer(Task.objects
+                                       .filter(responsible_person=instance)
+                                       .exclude(status=Task.TaskStatus.DONE),
+                                       many=True, read_only=True).data
 
     def get_employee(self, instance):
         return str(instance)

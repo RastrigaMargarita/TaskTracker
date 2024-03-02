@@ -28,7 +28,12 @@ class ImportantWorksSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ["id", "title", "description", "deadline", "estimated_duration", "employees_to_assign"]
+        fields = ["id",
+                  "title",
+                  "description",
+                  "deadline",
+                  "estimated_duration",
+                  "employees_to_assign"]
 
     def get_employees_to_assign(self, instance):
         # Сначала ищем занятость того сотрудника, который делает связаную задачу
